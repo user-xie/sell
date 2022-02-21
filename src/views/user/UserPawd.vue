@@ -107,14 +107,14 @@ export default {
       this.$refs[formName].validate((valid) => {
         // console.log(valid);
         if (valid) {
-          console.log(this.ruleForm);
+          // console.log(this.ruleForm);
           let data = {
             newPwd: this.ruleForm.checkPass,
             id: JSON.parse(localStorage.getItem("user")).id,
           };
           // 修改密码接口请求
           userseDitpwd(data).then((res) => {
-            console.log(res);
+            // console.log(res);
             let { code, msg } = res.data;
             if (code == 0) {
               this.open2(msg);
@@ -125,7 +125,7 @@ export default {
             }
           });
         } else {
-          console.log("sp");
+          // console.log("sp");
         }
       });
     },

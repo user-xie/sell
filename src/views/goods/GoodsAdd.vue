@@ -95,7 +95,7 @@ export default {
 <style lang="less" scoped>
 .useradd {
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   background-color: #fff;
 }
 /deep/.el-textarea__inner {

@@ -58,15 +58,18 @@ export default {
         password: this.passwd,
         userGroup: this.value,
       };
-      console.log(data);
+      // console.log(data);
       // 请求添加管理员接口
       userAdd(data).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == 0) {
-          this.open2(res.data.msg);
-          this.resetForm();
+          this.open2(res.data.msg + "正在跳转中");
+          // this.resetForm();
+          setTimeout(() => {
+            this.$router.push("/userlist");
+          }, 1000);
         } else {
-          this.open4(res.data.msg);
+          this.open4("请将信息输入完整！");
         }
       });
     },

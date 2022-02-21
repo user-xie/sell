@@ -55,6 +55,37 @@ export const goodsDel = (params) => {
         params
     })
 }
-// export const accountinfo = (data) => {
-//     return request.get('/users/accountinfo', data)
-// }
+// 单个删除账号
+export const userDel = (params) => {
+    return request({
+        method: "get",
+        url: "/users/del",
+        params
+    })
+}
+//  批量删除账号
+
+export const usersBatchdel = (params) => {
+    return request({
+        method: "get",
+        url: "/users/batchdel",
+        params
+    })
+}
+// 修改账号信息
+export const modifyuser = (data) => {
+    return request({
+        method: "post",
+        url: "/users/edit",
+        data
+    })
+}
+//  获取商品分类
+
+export const goodsCatlist = (params) => {
+    return request({
+        method: "get",
+        url: "/goods/catelist",
+        params
+    })
+}

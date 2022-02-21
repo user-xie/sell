@@ -13,7 +13,19 @@
     </div>
     <div class="">
       <div>
-        <span>欢迎你,{{ name }}</span>
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            <span>欢迎你,{{ name }}</span>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <div @click="admintop()">
+              <el-dropdown-item>个人中心</el-dropdown-item>
+            </div>
+            <div @click="outlogin">
+              <el-dropdown-item>退出登录</el-dropdown-item>
+            </div>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
       <div class="logo_img">
         <img :src="urlimg" @click="admintop()" alt="" />
@@ -40,6 +52,23 @@ export default {
     admintop() {
       this.$router.push("/admin");
     },
+    outlogin() {
+      localStorage.clear();
+      this.$router.push("/login");
+    },
+
+    getpersonal() {
+      let data = {
+        id: this.user.id,
+      };
+      // 获取个人头像与名称函数
+      accountinfo(data).then((res) => {
+        // console.log(res);
+        let { account, imgUrl } = res.data.accountInfo;
+        this.name = account;
+        this.urlimg = imgUrl;
+      });
+    },
   },
   watch: {
     "$route.path"(news) {
@@ -48,17 +77,14 @@ export default {
     },
   },
   created() {
-    this.tites = this.$route.name;
+    this.$bus.$on("changeimg", () => {
+      this.getpersonal();
+      // console.log(111);
+    }),
+      (this.tites = this.$route.name);
     this.routes = this.$route.matched;
-    let data = {
-      id: this.user.id,
-    };
-    accountinfo(data).then((res) => {
-      console.log(res);
-      let { account, imgUrl } = res.data.accountInfo;
-      this.name = account;
-      this.urlimg = imgUrl;
-    });
+    // 获取个人头像与名称
+    this.getpersonal();
   },
 };
 </script>
@@ -96,5 +122,12 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
 }
 </style>

@@ -24,11 +24,7 @@ const routes = [
         name: ["后台首页"],
         component: () => import("@/views/home/Home.vue")
       },
-      {
-        path: "/admin",
-        name: ["管理员信息"],
-        component: Admin
-      },
+
       // 订单管理
       {
         path: "/order",
@@ -89,6 +85,11 @@ const routes = [
 
         component: () => import('@/views/user/UserPawd.vue')
       },
+      {
+        path: "/admin",
+        name: ["账号管理", "个人中心"],
+        component: Admin
+      }
 
 
     ]
@@ -116,6 +117,18 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+router.beforeEach((to, from, next) => {
+  // console.log(to);
+  if (to.path == "/login") {
+    next()
+  }
+  if (localStorage.getItem("user")) {
+    next()
+  }
+  else {
+    next("/login")
+  }
 })
 
 export default router

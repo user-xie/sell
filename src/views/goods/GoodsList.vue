@@ -95,23 +95,23 @@ export default {
         },
       ],
       delId: "",
+      data: {
+        currentPage: 1,
+        pageSize: 5,
+      },
     };
   },
   methods: {
     handleEdit(index, row) {
-      console.log(index, row);
+      // console.log(index, row);
     },
     handleDelete(index, row) {
-      console.log(row);
+      // console.log(row);
       this.delId = row.id;
     },
+    // 请求商品列表函数
     getgoodslidt() {
-      let data = {
-        currentPage: 1,
-        pageSize: 5,
-      };
-      // 请求商品列表函数
-      goodslList(data).then((res) => {
+      goodslList(this.data).then((res) => {
         // console.log();
         this.tableData = res.data.data;
         this.$bus.$emit("listgetpar", res.data.total);
@@ -125,8 +125,9 @@ export default {
   },
   created() {
     this.getgoodslidt();
+    // 删除单个商品
     this.$bus.$on("delinfo", (res) => {
-      console.log(res);
+      // console.log(res);
       if (res) {
         let data = {
           id: this.delId,
@@ -136,6 +137,18 @@ export default {
           this.getgoodslidt();
         });
       }
+    });
+    // 点击分页器页面条数重新渲染页面
+    this.$bus.$on("goodliy", (res) => {
+      // console.log(res);
+      this.data.pageSize = res;
+      this.getgoodslidt();
+    });
+    // 点击改变分页器页数重新渲染页面
+    this.$bus.$on("goodlit", (res) => {
+      // console.log(res);
+      this.data.currentPage = res;
+      this.getgoodslidt();
     });
   },
 };

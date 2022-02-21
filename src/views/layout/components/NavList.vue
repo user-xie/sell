@@ -47,6 +47,7 @@
               <el-menu-item index="/userlist">账号列表</el-menu-item>
               <el-menu-item index="/useradd">添加账号</el-menu-item>
               <el-menu-item index="/userpawd">修改密码</el-menu-item>
+              <el-menu-item index="/admin">个人中心</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <!--  -->
@@ -74,13 +75,17 @@ export default {
       urls: "",
     };
   },
+  watch: {
+    "$route.path"(news) {
+      this.bgindex = news;
+    },
+  },
   methods: {
     handleOpen(key, keyPath) {},
     handleClose(key, keyPath) {},
   },
   created() {
-    let a = this.$route.path;
-    this.bgindex = a;
+    this.bgindex = this.$route.path;
   },
 };
 </script>
