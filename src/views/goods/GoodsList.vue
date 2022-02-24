@@ -18,9 +18,6 @@
               <el-form-item label="商品价格">
                 <span>{{ props.row.price }}</span>
               </el-form-item>
-              <el-form-item label="商品图片">
-                <span>{{ props.row.imgUrl }}</span>
-              </el-form-item>
               <el-form-item label="创建时间">
                 <span>{{ props.row.ctime }}</span>
               </el-form-item>
@@ -40,13 +37,13 @@
         <el-table-column label="所属分类" prop="category"> </el-table-column>
         <el-table-column label="商品价格" prop="price"> </el-table-column>
         <el-table-column label="商品图片" prop="imgUrl">
-          <div class="demo-image__preview">
+          <template slot-scope="scope">
             <el-image
               style="width: 50px; height: 50px"
-              :src="tableData[0].imgUrl"
+              :src="'http://localhost:5000' + scope.row.imgUrl"
             >
             </el-image>
-          </div>
+          </template>
         </el-table-column>
         <el-table-column label="商品描述" prop="goodsDesc"> </el-table-column>
         <el-table-column label="操作">
@@ -74,12 +71,12 @@
 import MainTitle from "@/components/MainTitle.vue";
 import Pager from "@/components/Pager.vue";
 import Open from "@/components/Open.vue";
-import { goodslList } from "@/api/user.js";
-import { goodsDel } from "@/api/user.js";
+import { goodslList, goodsDel, goodsDelty } from "@/api/user.js";
 
 export default {
   data() {
     return {
+      totals: 0,
       opensmg: "此操作将永久删除, 是否继续?",
       tableData: [
         {
@@ -115,6 +112,7 @@ export default {
         // console.log();
         this.tableData = res.data.data;
         this.$bus.$emit("listgetpar", res.data.total);
+        // this.totals = res.data.total;
       });
     },
   },

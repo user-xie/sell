@@ -42,16 +42,6 @@ export default {
     };
   },
   methods: {
-    open2(msg) {
-      this.$message({
-        showClose: true,
-        message: msg,
-        type: "success",
-      });
-    },
-    open4(msg) {
-      this.$message.error(msg);
-    },
     handleChange() {
       let data = {
         account: this.names,
@@ -63,13 +53,11 @@ export default {
       userAdd(data).then((res) => {
         // console.log(res);
         if (res.data.code == 0) {
-          this.open2(res.data.msg + "正在跳转中");
           // this.resetForm();
           setTimeout(() => {
             this.$router.push("/userlist");
           }, 1000);
         } else {
-          this.open4("请将信息输入完整！");
         }
       });
     },

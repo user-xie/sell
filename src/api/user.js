@@ -89,3 +89,46 @@ export const goodsCatlist = (params) => {
         params
     })
 }
+// 修改商品分类
+export const goodsEdit = (data) => {
+    return request({
+        method: "post",
+        url: "/goods/editcate",
+        data
+    })
+}
+// 添加商品分类
+
+export const goodsaddty = (data) => {
+    return request({
+        method: "post",
+        url: "/goods/addcate",
+        data
+    })
+}
+// 删除商品分类
+export const goodsDelty = (params) => {
+    return request({
+        method: "get",
+        url: "/goods/delcate",
+        params
+    })
+}
+//  查询所有分类名称
+
+export const goodsAlltype = (params) => {
+    return request({
+        method: "get",
+        url: "/goods/categories",
+        params
+    })
+}
+
+// 添加商品
+export const goodsAdd = (data) => {
+    return request({
+        method: "post",
+        url: "/goods/add",
+        data
+    })
+}

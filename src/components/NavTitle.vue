@@ -79,10 +79,10 @@ export default {
   created() {
     this.$bus.$on("changeimg", () => {
       this.getpersonal();
-      // console.log(111);
-    }),
-      (this.tites = this.$route.name);
-    this.routes = this.$route.matched;
+      // console.log(1112222);
+    });
+    // ((this.tites = this.$route.name));
+    // this.routes = this.$route.matched;
     // 获取个人头像与名称
     this.getpersonal();
   },

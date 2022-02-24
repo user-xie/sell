@@ -83,23 +83,14 @@ export default {
     geticon() {
       this.cheak = !this.cheak;
     },
-    // 登录成功提示
-    open2(msg) {
-      this.$message({
-        showClose: true,
-        message: msg,
-      });
-    },
-    open4(msg) {
-      this.$message.error(msg);
-    },
+
     submitForm(ruleForm) {
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           checkLogin(this.ruleForm).then((res) => {
+            // console.log(res);
             let { code, id, msg, token, role } = res.data;
             if (code == 0) {
-              this.open2(msg);
               localStorage.setItem(
                 "user",
                 JSON.stringify({
@@ -112,7 +103,7 @@ export default {
               );
               this.$router.push("/home");
             } else if (code == 1) {
-              this.open4(msg);
+              this.$message.error(res.data.msg);
             }
           });
         }

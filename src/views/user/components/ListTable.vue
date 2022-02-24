@@ -110,10 +110,6 @@ export default {
         console.log(res);
         if (res.data.code === 0) {
           // 修改成功事件
-          this.$message({
-            message: res.data.msg,
-            type: "success",
-          });
           this.isdisplay = false;
           // 重新渲染列表
           this.getuserlist();

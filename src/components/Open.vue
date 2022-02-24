@@ -28,16 +28,9 @@ export default {
       })
         .then(() => {
           this.$bus.$emit("delinfo", this.state);
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
+          this.$bus.$emit("delgoodsty", this.state);
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
           console.log("取消操作");
         });
     },

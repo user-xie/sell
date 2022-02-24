@@ -1,45 +1,41 @@
 <template>
-  <div class="">
+  <div class="orderitem">
     <div class="inputs">
       <div>
         <span>订单号</span>
-        <el-input v-model="input1" placeholder="订单号"></el-input>
+        <el-input v-model="dataObj.orderNo" placeholder="订单号"></el-input>
       </div>
       <div>
         <span>收货人</span>
-        <el-input v-model="input2" placeholder="收货人"></el-input>
+        <el-input v-model="dataObj.consignee" placeholder="收货人"></el-input>
       </div>
       <div>
         <span>手机号</span
-        ><el-input v-model="input3" placeholder="手机号"></el-input>
+        ><el-input v-model="dataObj.phone" placeholder="手机号"></el-input>
       </div>
       <div>
         <span>订单状态</span>
         <template>
-          <el-select v-model="value" placeholder="订单状态">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
+          <el-select v-model="dataObj.orderState" placeholder="订单状态">
+            <!-- <el-option> </el-option> -->
+            <el-option label="已受理" value="已受理"></el-option>
+            <el-option label="派送中" value="派送中"></el-option>
+            <el-option label="已完成" value="已完成"></el-option>
           </el-select>
         </template>
       </div>
     </div>
     <div class="datas">
       <span>选择时间</span>
-      <el-time-picker
-        is-range
-        v-model="value1"
-        range-separator="至"
-        start-placeholder="开始时间"
-        end-placeholder="结束时间"
-        placeholder="选择时间范围"
-      >
+      <el-date-picker
+      v-model="dataObj.date"
+      type="datetimerange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker>
       </el-time-picker>
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" @click="primary()">查询</el-button>
     </div>
     <!-- 表格站位 -->
     <div class="order_table">
@@ -60,41 +56,58 @@
 import OrderTatle from "./components/OrderTatle.vue";
 // 分页器
 import Pager from "@/components/Pager.vue";
+import { orderList } from "@/api/order.js";
 export default {
   data() {
     return {
-      input1: "",
-      input2: "",
-      input3: "",
-      value: "",
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕",
-        },
-        {
-          value: "选项2",
-          label: "双皮奶",
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎",
-        },
-        {
-          value: "选项4",
-          label: "龙须面",
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭",
-        },
-      ],
-      value1: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
+      dataObj: {
+        orderNo: "",
+        consignee: "",
+        phone: "",
+        orderState: "",
+        date: "",
+      },
+      // 返回数据
+      formData: [],
+
+      // 请求数据
+      data: {
+        currentPage: 1,
+        pageSize: 5,
+      },
     };
   },
   components: {
     OrderTatle,
     Pager,
+  },
+  methods: {
+    async getorderList() {
+      let res = await orderList(this.data);
+      // console.log(res.data.total);
+      this.$bus.$emit("getordpa", res.data.total);
+      this.formData = res.data.data;
+      this.$bus.$emit("dataorder", res.data.data);
+    },
+    // 查询按钮
+    primary() {
+      // 合并对象
+      Object.assign(this.data, this.dataObj);
+      // 重新渲染订单列表
+      this.getorderList();
+    },
+  },
+  created() {
+    // 请求订单列表
+    this.getorderList();
+    this.$bus.$on("ordertypy", (res) => {
+      this.data.pageSize = res;
+      this.getorderList();
+    });
+    this.$bus.$on("ordertypt", (res) => {
+      this.data.currentPage = res;
+      this.getorderList();
+    });
   },
 };
 </script>
@@ -130,7 +143,7 @@ export default {
 }
 .order_table {
   width: 100%;
-  height: 320px;
+  min-height: 320px;
   // background-color: blue;
   margin-top: 40px;
 }

@@ -1,5 +1,6 @@
 //导入axios 
 import axios from 'axios'
+import { Message } from 'element-ui';
 //配置axios 
 //服务器基础路径
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -24,11 +25,31 @@ axios.interceptors.request.use(function (config) {
 //响应拦截器
 // 后端返回了数据---获取后端的数据 code 值
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (res) {
     // 对响应数据做点什么
-    return response;
+    let { code, msg } = res.data
+    if (code === 0) {
+        if (msg) {
+            Message({
+                message: msg,
+                type: "success"
+            })
+        }
+    } else if (code == 1) {
+        Message({
+            message: msg,
+            type: "error"
+        })
+
+    }
+
+    return res;
 }, function (error) {
     // 对响应错误做点什么
+    Message({
+        message: error.message,
+        type: "error"
+    })
     return Promise.reject(error);
 });
 
