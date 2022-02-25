@@ -2,7 +2,12 @@
   <div class="goodstype">
     <main-title>
       <span>商品分类</span>
-      <el-button slot="butto" type="primary" size="mini" @click="openaddtype()"
+      <el-button
+        slot="butto"
+        v-if="userguap == 'super'"
+        type="primary"
+        size="mini"
+        @click="openaddtype()"
         >添加分类</el-button
       ></main-title
     >
@@ -35,7 +40,7 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" v-if="userguap == 'super'">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -115,6 +120,7 @@ export default {
         cateName: "",
         state: 0,
       },
+      userguap: "",
     };
   },
   methods: {
@@ -179,6 +185,8 @@ export default {
   },
 
   created() {
+    this.userguap = JSON.parse(localStorage.getItem("user")).role;
+
     this.$bus.$on("goodtypy", (res) => {
       this.data.pageSize = res;
       this.getgoodsTy();

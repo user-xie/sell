@@ -28,13 +28,13 @@
     <div class="datas">
       <span>选择时间</span>
       <el-date-picker
-      v-model="dataObj.date"
-      type="datetimerange"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期">
-    </el-date-picker>
-      </el-time-picker>
+        v-model="dataObj.date"
+        type="datetimerange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+      >
+      </el-date-picker>
       <el-button type="primary" @click="primary()">查询</el-button>
     </div>
     <!-- 表格站位 -->
@@ -91,6 +91,10 @@ export default {
     },
     // 查询按钮
     primary() {
+      //判断是否与时间值
+      if (this.dataObj.date) {
+        this.dataObj.date = JSON.stringify(this.dataObj.date);
+      }
       // 合并对象
       Object.assign(this.data, this.dataObj);
       // 重新渲染订单列表

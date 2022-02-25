@@ -54,6 +54,7 @@ export default {
     },
     outlogin() {
       localStorage.clear();
+      window.location.reload();
       this.$router.push("/login");
     },
 

@@ -8,11 +8,12 @@ export const shopInfo = (params) => {
     })
 }
 
-// 店铺图片上传功能
-export const shopUpload = (data) => {
+// 店铺内容修改
+
+export const shopEdit = (data) => {
     return request({
-        method: "get",
-        url: "/shop/upload",
+        method: "post",
+        url: "/shop/edit",
         data
     })
 }

@@ -33,7 +33,7 @@
               <el-menu-item index="/goodstype">商品分类</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="/shop">
+          <el-menu-item index="/shop" v-if="userguap == 'super'">
             <i class="iconfont icon-dianpu-xianxing"></i>
             <span slot="title">店铺管理</span>
           </el-menu-item>
@@ -44,14 +44,22 @@
               <span>账号管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/userlist">账号列表</el-menu-item>
-              <el-menu-item index="/useradd">添加账号</el-menu-item>
+              <el-menu-item index="/userlist" v-if="userguap == 'super'"
+                >账号列表</el-menu-item
+              >
+              <el-menu-item index="/useradd" v-if="userguap == 'super'"
+                >添加账号</el-menu-item
+              >
               <el-menu-item index="/userpawd">修改密码</el-menu-item>
               <el-menu-item index="/admin">个人中心</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <!--  -->
-          <el-submenu index="/statistics" open="index">
+          <el-submenu
+            index="/statistics"
+            open="index"
+            v-if="userguap == 'super'"
+          >
             <template slot="title">
               <i class="iconfont icon-i_5xiaoshoutongji"></i>
               <span>销售统计</span>
@@ -73,6 +81,7 @@ export default {
     return {
       bgindex: "/home",
       urls: "",
+      userguap: "",
     };
   },
   watch: {
@@ -85,6 +94,7 @@ export default {
     handleClose(key, keyPath) {},
   },
   created() {
+    this.userguap = JSON.parse(localStorage.getItem("user")).role;
     this.bgindex = this.$route.path;
   },
 };

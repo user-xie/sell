@@ -9,18 +9,20 @@
       </data-item>
     </div>
     <!-- 折线图 -->
-    <div class="tables">
-      <div id="main"></div>
+    <div class="tables" v-if="EchartData">
+      <echarts titlecha="外卖数据统计" :echasData="EchartData"> </echarts>
     </div>
   </div>
 </template>
 
 <script>
 import DataItem from "./components/DataItem.vue";
-import * as echarts from "echarts";
+import Echarts from "@/components/Echarts.vue";
+import { homeEchart } from "@/api/echarts.js";
 export default {
   data() {
     return {
+      EchartData: "",
       datalists: [
         {
           color: { color: "#0c93da" },
@@ -51,75 +53,21 @@ export default {
   },
   components: {
     DataItem,
+    Echarts,
   },
   methods: {
     changesize() {},
   },
-  //
-  mounted() {
-    var myChart = echarts.init(document.getElementById("main"));
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: "数据统计",
-      },
-      tooltip: {
-        trigger: "axis",
-      },
-      legend: {
-        data: ["订单", "销售额", "注册人数", "管理人员"],
-      },
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true,
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {},
-        },
-      },
-      xAxis: {
-        type: "category",
-        boundaryGap: false,
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      },
-      yAxis: {
-        type: "value",
-      },
-      series: [
-        {
-          name: "订单",
-          type: "line",
-          stack: "Total",
-          data: [120, 132, 101, 134, 90, 230, 210],
-        },
-        {
-          name: "销售额",
-          type: "line",
-          stack: "Total",
-          data: [220, 182, 191, 234, 290, 330, 310],
-        },
-        {
-          name: "注册人数",
-          type: "line",
-          stack: "Total",
-          data: [150, 232, 201, 154, 190, 330, 410],
-        },
-        {
-          name: "管理人员",
-          type: "line",
-          stack: "Total",
-          data: [320, 332, 301, 334, 390, 330, 320],
-        },
-      ],
+  created() {
+    homeEchart().then((res) => {
+      console.log(res);
+      if (res.data.code === 0) {
+        this.EchartData = res.data.data;
+        // console.log(this.EchartData);
+      }
     });
-    // window.addEventListener("resize", function () {
-    //   console.log(111);
-    //   // this.resize();
-    // });
   },
+  //
 };
 </script>
 

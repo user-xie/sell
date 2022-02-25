@@ -49,6 +49,7 @@
 
 <script>
 import { checkLogin } from "@/api/user.js";
+import { power } from "@/router/index.js";
 export default {
   data() {
     return {
@@ -101,6 +102,7 @@ export default {
                   role,
                 })
               );
+              power();
               this.$router.push("/home");
             } else if (code == 1) {
               this.$message.error(res.data.msg);
@@ -113,6 +115,7 @@ export default {
   created() {
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user"));
+      // power();
       this.ruleForm.account = user.zhanghao;
       this.ruleForm.password = user.password;
     }
