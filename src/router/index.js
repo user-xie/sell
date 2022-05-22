@@ -121,6 +121,20 @@ const dynamicRouter = [
       }
     ]
   },
+  {
+    path: "/LargeScreen",
+    component: Layout,
+    redirect: "/LargeScreenOne",
+    children: [
+      {
+        path: "/LargeScreenOne",
+        name: ["大屏幕", "Datav效果1"],
+        role: "super",
+        component: () => import('@/views/LargeScreen/LargeScreenOne.vue')
+      }
+    ]
+
+  }
 
 ]
 //错误路由

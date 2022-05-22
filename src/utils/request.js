@@ -1,9 +1,12 @@
 //导入axios 
 import axios from 'axios'
+import Qs from "qs"
 import { Message } from 'element-ui';
-//配置axios 
+//配置axios
 //服务器基础路径
+// axios.defaults.baseURL = 'http://47.108.149.141:3000'
 axios.defaults.baseURL = 'http://localhost:5000'
+
 
 // 拦截器
 // 请求拦截器 
@@ -14,7 +17,10 @@ axios.interceptors.request.use(function (config) {
     // 每次请求接口 添加 token 
     if (localStorage.getItem('user')) {
         let { token } = JSON.parse(localStorage.getItem('user'));
-        config.headers.Authorization = 'Bearer ' + token
+        config.headers.Authorization = token
+    }
+    if (config.method === 'post') {
+        config.data = Qs.stringify(config.data)
     }
     return config;
 }, function (error) {
@@ -52,8 +58,6 @@ axios.interceptors.response.use(function (res) {
     })
     return Promise.reject(error);
 });
-
-
 
 //导出暴露axios
 export default axios

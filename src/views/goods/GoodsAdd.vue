@@ -29,7 +29,7 @@
           <span>商品图片</span>
           <el-upload
             class="avatar-uploader"
-            action="http://localhost:5000/goods/goods_img_upload"
+            action="http://47.108.149.141:3000/goods/goods_img_upload"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -97,7 +97,7 @@ export default {
     // 上传头像文件上传成功时的钩子
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      // console.log(res, file);
+      console.log(res, file);
       if (res.code === 0) {
         this.$message({
           message: res.msg,

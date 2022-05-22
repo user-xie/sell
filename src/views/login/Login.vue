@@ -70,9 +70,9 @@ export default {
         password: [
           { required: true, message: "请输入登录密码", trigger: "blur" },
           {
-            min: 5,
+            min: 3,
             max: 18,
-            message: "长度在 5到 18 个字符",
+            message: "长度在 3到 18 个字符",
             trigger: "blur",
           },
         ],

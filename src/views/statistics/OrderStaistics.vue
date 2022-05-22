@@ -13,6 +13,7 @@
     </main-title>
     <div v-if="dataechar" class="picece">
       <pie-chart datatite="订单统计" :datapie="dataechar"> </pie-chart>
+      <Editor></Editor>
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@
 <script>
 import PieChart from "@/components/PieChart.vue";
 import MainTitle from "@/components/MainTitle.vue";
+import Editor from "@/components/Editor.vue";
 import { ordereCharts } from "@/api/echarts.js";
 
 export default {
@@ -31,6 +33,7 @@ export default {
   components: {
     PieChart,
     MainTitle,
+    Editor,
   },
   created() {
     ordereCharts().then((res) => {

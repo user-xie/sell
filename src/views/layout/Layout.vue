@@ -9,7 +9,6 @@
     </div>
     <div class="lay-rihgt">
       <div class="top_title">
-        <!-- 顶部页面信息 -->
         <nav-title> </nav-title>
       </div>
       <div class="mains">

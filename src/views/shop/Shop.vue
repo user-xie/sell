@@ -2,14 +2,14 @@
   <div class="shop">
     <main-title>
       <span>商铺管理</span>
-      <el-button slot="butto" type="primary" @click="editShop()" v-if="!isshow"
-        >我要编辑</el-button
-      >
-      <el-button slot="butto" type="success" @click="saveShop()" v-else
-        >我要保存</el-button
-      >
     </main-title>
     <!-- 表单 -->
+    <el-button slot="butto" type="primary" @click="editShop()" v-if="!isshow"
+      >我要编辑</el-button
+    >
+    <el-button slot="butto" type="success" @click="saveShop()" v-else
+      >我要保存</el-button
+    >
     <div v-if="formData != null">
       <el-form
         ref="form"

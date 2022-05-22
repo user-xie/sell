@@ -40,7 +40,7 @@
           <template slot-scope="scope">
             <el-image
               style="width: 50px; height: 50px"
-              :src="'http://localhost:5000' + scope.row.imgUrl"
+              :src="imgUrls + scope.row.imgUrl"
             >
             </el-image>
           </template>
@@ -84,8 +84,7 @@ export default {
           category: "默认",
           goodsDesc: "默认",
           id: 0,
-          imgUrl:
-            "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+          imgUrl: "http://47.108.149.141:3000/upload/imgs/goods_img/",
           price: "默认",
           ratings: "0",
           sellCount: 0,
@@ -96,6 +95,7 @@ export default {
         currentPage: 1,
         pageSize: 5,
       },
+      imgUrls: "http://47.108.149.141:3000/upload/imgs/goods_img/",
     };
   },
   methods: {

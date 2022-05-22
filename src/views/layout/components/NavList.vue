@@ -51,7 +51,7 @@
                 >添加账号</el-menu-item
               >
               <el-menu-item index="/userpawd">修改密码</el-menu-item>
-              <el-menu-item index="/admin">个人中心</el-menu-item>
+              <!-- <el-menu-item index="/admin">个人中心</el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
           <!--  -->
@@ -67,6 +67,21 @@
             <el-menu-item-group>
               <el-menu-item index="/goodsstatistics">商品统计</el-menu-item>
               <el-menu-item index="/orderstaistics">订单统计</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <!-- Datav  -->
+          <el-submenu
+            index="/LargeScreen"
+            open="index"
+            v-if="userguap == 'super'"
+          >
+            <template slot="title">
+              <i class="iconfont icon-i_5xiaoshoutongji"></i>
+              <span>大屏幕</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/LargeScreenOne">Data_one</el-menu-item>
+              <!-- <el-menu-item index="/orderstaistics">订单统计</el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
